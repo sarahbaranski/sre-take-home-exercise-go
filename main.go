@@ -8,6 +8,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -93,6 +94,11 @@ func main() {
 	}
 
 	filePath := os.Args[1]
+	fileExtension := filepath.Ext(filePath)
+	if fileExtension != ".yaml" {
+		log.Fatal("Error config is not yaml file")
+	}
+
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal("Error reading file:", err)
