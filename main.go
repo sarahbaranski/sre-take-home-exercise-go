@@ -8,14 +8,10 @@ import (
 	"math"
 	"net"
 
-	// "net"
 	"net/http"
 	"net/url"
-	// "net/url"
 	"os"
 	"path/filepath"
-
-	// "regexp"
 	"strings"
 	"time"
 
