@@ -21,6 +21,8 @@ To exit from the app use `Ctrl+C`
 
 - Looking at how the domain was being split, I noticed that it was not ignoring ports. In order to fix this, I added logic to parse through the url and remove the port from the domain.
 
+- Thinking about additional checks I might want to have in place, I added a check for the endpoint to verify if it was an empty string and remove it if it was. This way the app will not waste time printing out 0% availability for an endpoint that is not there.
+
 ## Changelog
 
 To view the history and recent changes to this repository, see the [CHANGELOG](./CHANGELOG.md)

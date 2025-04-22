@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - 2025-04-22
+
+_Add condition to check if endpoint is an empty string and remove it._
+
 ## [1.3.0] - 2025-04-22
 
 _Parsed through the url to remove any port prior to splitting off the domain._

@@ -128,5 +128,12 @@ func main() {
 		log.Fatal("Error parsing YAML:", err)
 	}
 
+	// remove endpoint from array if its an empty string
+	for i, endpoint := range endpoints {
+		if endpoint.URL == "" {
+			endpoints = append(endpoints[:i], endpoints[i+1:]...)
+		}
+	}
+
 	monitorEndpoints(endpoints)
 }
