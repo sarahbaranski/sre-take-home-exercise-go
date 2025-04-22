@@ -6,9 +6,16 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"net"
+
+	// "net"
 	"net/http"
+	"net/url"
+	// "net/url"
 	"os"
 	"path/filepath"
+
+	// "regexp"
 	"strings"
 	"time"
 
@@ -30,7 +37,7 @@ type DomainStats struct {
 
 var stats = make(map[string]*DomainStats)
 
-func checkHealth(endpoint Endpoint) {	
+func checkHealth(endpoint Endpoint) {
 	var client = &http.Client{
 		Timeout: 500 * time.Millisecond,
 	}
@@ -50,7 +57,7 @@ func checkHealth(endpoint Endpoint) {
 	for key, value := range endpoint.Headers {
 		req.Header.Set(key, value)
 	}
-	
+
 	resp, err := client.Do(req)
 	domain := extractDomain(endpoint.URL)
 
@@ -58,12 +65,25 @@ func checkHealth(endpoint Endpoint) {
 	if err == nil && resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		stats[domain].Success++
 	}
-	
+
 }
 
-func extractDomain(url string) string {
-	urlSplit := strings.Split(url, "//")
+func extractDomain(urL string) string {
+	u, err := url.Parse(urL)
+	if err != nil {
+		fmt.Println("Error parsing URL:", err)
+	}
+	host := u.Host
+	if strings.Contains(host, ":") {
+		host, _, err = net.SplitHostPort(host)
+		if err != nil {
+			fmt.Println("Error splitting host and port:", err)
+		}
+	}
+
+	urlSplit := strings.Split(host, "//")
 	domain := strings.Split(urlSplit[len(urlSplit)-1], "/")[0]
+
 	return domain
 }
 
