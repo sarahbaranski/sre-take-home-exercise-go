@@ -30,8 +30,10 @@ type DomainStats struct {
 
 var stats = make(map[string]*DomainStats)
 
-func checkHealth(endpoint Endpoint) {
-	var client = &http.Client{}
+func checkHealth(endpoint Endpoint) {	
+	var client = &http.Client{
+		Timeout: 500 * time.Millisecond,
+	}
 
 	bodyBytes, err := json.Marshal(endpoint)
 	if err != nil {
@@ -48,7 +50,7 @@ func checkHealth(endpoint Endpoint) {
 	for key, value := range endpoint.Headers {
 		req.Header.Set(key, value)
 	}
-
+	
 	resp, err := client.Do(req)
 	domain := extractDomain(endpoint.URL)
 
@@ -56,6 +58,7 @@ func checkHealth(endpoint Endpoint) {
 	if err == nil && resp.StatusCode >= 200 && resp.StatusCode < 300 {
 		stats[domain].Success++
 	}
+	
 }
 
 func extractDomain(url string) string {
