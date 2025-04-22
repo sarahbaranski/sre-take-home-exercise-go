@@ -10,7 +10,9 @@ A GoLang App that regularly checks the health of an endpoint
 
 To get started with this app, you first need to clone the repository.
 
-run `go run main.go sample.yaml` to run the app with sample input.
+Run `go run main.go sample.yaml` to run the app with sample input.
+
+To exit from the app use `Ctrl+C`
 
 ## Fixes
 - The first thing I identified that needed to be fixed was to ensure that the file input is a `.yaml` file and log and error if the file is not. This is important to have to ensure that the user is passing in the correct file type as input and if they aren't allowing them to know what file type they should be passing in.
