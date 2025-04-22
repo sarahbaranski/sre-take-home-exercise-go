@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2025-04-22
+
+_Optimize condition to check if endpoint is an empty and add message to user._
+
 ## [1.4.0] - 2025-04-22
 
 _Add condition to check if endpoint is an empty string and remove it._

@@ -7,6 +7,7 @@ import (
 	"log"
 	"math"
 	"net"
+	"slices"
 
 	"net/http"
 	"net/url"
@@ -131,7 +132,8 @@ func main() {
 	// remove endpoint from array if its an empty string
 	for i, endpoint := range endpoints {
 		if endpoint.URL == "" {
-			endpoints = append(endpoints[:i], endpoints[i+1:]...)
+			endpoints = slices.Delete(endpoints, i, i+1)
+			fmt.Printf("Endpoint at index %d does not contain a URL. Removing from list of endpoints to check.\n", i)
 		}
 	}
 
